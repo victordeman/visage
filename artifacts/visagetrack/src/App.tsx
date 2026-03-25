@@ -6,6 +6,7 @@ import { useEffect } from "react";
 
 // Pages
 import Login from "@/pages/Login";
+import Register from "@/pages/Register";
 import Dashboard from "@/pages/Dashboard";
 import Users from "@/pages/Users";
 import Enroll from "@/pages/Enroll";
@@ -34,6 +35,7 @@ function Router() {
     <Switch>
       <Route path="/" component={() => <RouteRedirect to="/login" />} />
       <Route path="/login" component={Login} />
+      <Route path="/register" component={Register} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/users" component={Users} />
       <Route path="/enroll" component={Enroll} />

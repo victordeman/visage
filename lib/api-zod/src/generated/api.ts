@@ -30,6 +30,19 @@ export const LoginResponse = zod.object({
 });
 
 /**
+ * @summary Register a new user account
+ */
+export const registerBodyRoleDefault = `student`;
+
+export const RegisterBody = zod.object({
+  firstName: zod.string(),
+  lastName: zod.string(),
+  email: zod.string(),
+  password: zod.string(),
+  role: zod.string().default(registerBodyRoleDefault),
+});
+
+/**
  * @summary Logout
  */
 export const LogoutResponse = zod.object({

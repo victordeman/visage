@@ -19,5 +19,6 @@ export * from "./loginResponse";
 export * from "./markAttendanceRequest";
 export * from "./markAttendanceRequestStatus";
 export * from "./messageResponse";
+export * from "./registerRequest";
 export * from "./user";
 export * from "./userStats";

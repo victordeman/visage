@@ -81,7 +81,17 @@ export default function Login() {
             </Button>
           </form>
           
-          <div className="mt-8 text-center">
+          <div className="mt-8 text-center space-y-3">
+            <p className="text-sm text-muted-foreground">
+              Don't have an account?{' '}
+              <button
+                type="button"
+                onClick={() => setLocation('/register')}
+                className="text-primary hover:text-primary/80 font-medium transition-colors"
+              >
+                Create one
+              </button>
+            </p>
             <p className="text-xs text-muted-foreground/60 flex items-center justify-center">
               <ShieldCheck className="w-4 h-4 mr-1" /> End-to-end encrypted connection
             </p>
