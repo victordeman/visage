@@ -1,0 +1,22 @@
+packages:
+  "@vladmandic/face-api": "Browser-based face recognition for biometrics"
+  "react-webcam": "Webcam component for capturing face video stream"
+  "framer-motion": "Animations for scanning effects and page transitions"
+  "recharts": "Charts for attendance dashboard"
+  "date-fns": "Date formatting"
+  "zustand": "State management for authentication"
+  "clsx": "Utility for constructing className strings conditionally"
+  "tailwind-merge": "Utility function to efficiently merge Tailwind CSS classes"
+
+images:
+  - path: "artifacts/visagetrack/public/images/auth-bg.png"
+    description: "Deep navy and slate dark mode abstract technology background with subtle glowing blue biometric scanning lines and nodes"
+    aspect_ratio: "16:9"
+  - path: "artifacts/visagetrack/public/images/logo.png"
+    description: "Minimal modern cybersecurity logo featuring a subtle face profile composed of digital nodes in bright blue on a transparent background"
+    aspect_ratio: "1:1"
+
+notes:
+  - Using @vladmandic/face-api to perform biometric scanning in the browser.
+  - Expects backend to serve JWT auth on /api/auth/login.
+  - Assuming API runs on /api relative path.
