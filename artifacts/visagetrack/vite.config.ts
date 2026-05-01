@@ -48,7 +48,6 @@ export default defineConfig({
       output: {
         manualChunks: {
           "vendor-react": ["react", "react-dom", "wouter", "@tanstack/react-query"],
-          "vendor-face-api": ["@vladmandic/face-api"],
           "vendor-ui": ["lucide-react", "framer-motion", "recharts", "date-fns"],
         },
       },
