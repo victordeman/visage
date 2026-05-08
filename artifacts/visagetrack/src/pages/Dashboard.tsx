@@ -4,11 +4,23 @@ import { useAuthStore } from '@/store/auth';
 import { useUserStats } from '@/hooks/use-users';
 import { useAttendanceList } from '@/hooks/use-attendance';
 import { Card, CardContent } from '@/components/ui/card';
-import { Users, CheckCircle2, XCircle, Clock, CalendarDays } from 'lucide-react';
+import { Users, CheckCircle2, XCircle, Clock, CalendarDays, ArrowRight } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell
 } from 'recharts';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from '@/components/ui/table';
+import { Badge } from '@/components/ui/badge';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
+import { Link } from 'wouter';
 
 export default function Dashboard() {
   const { user, isAdmin } = useAuthStore();
@@ -111,33 +123,52 @@ export default function Dashboard() {
 
         {/* Recent Activity */}
         <Card className="lg:col-span-1 flex flex-col">
-          <div className="p-6 border-b border-white/5">
+          <div className="p-6 border-b border-white/5 flex items-center justify-between">
             <h3 className="text-lg font-semibold text-white">Recent Scans</h3>
+            <Link href="/attendance">
+              <Button variant="ghost" size="sm" className="text-xs">
+                View All
+                <ArrowRight className="ml-2 w-3 h-3" />
+              </Button>
+            </Link>
           </div>
-          <div className="p-0 overflow-y-auto flex-1 max-h-[300px]">
+          <div className="p-0 overflow-auto flex-1 max-h-[400px]">
             {attendanceLoading ? (
               <div className="p-6 text-center text-muted-foreground">Loading...</div>
             ) : attendance && attendance.length > 0 ? (
-              <div className="divide-y divide-white/5">
-                {attendance.slice(0, 10).map((record: any) => (
-                  <div key={record.id} className="p-4 flex items-center justify-between hover:bg-white/5 transition-colors">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-secondary-foreground font-medium">
-                        {record.userName?.charAt(0) || 'U'}
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium text-white">{record.userName}</p>
-                        <p className="text-xs text-muted-foreground">{formatDate(record.timestamp)}</p>
-                      </div>
-                    </div>
-                    <span className={`px-2.5 py-1 text-xs font-medium rounded-full ${
-                      record.status === 'present' ? 'bg-success/20 text-success' : 'bg-destructive/20 text-destructive'
-                    }`}>
-                      {record.status}
-                    </span>
-                  </div>
-                ))}
-              </div>
+              <Table>
+                <TableHeader className="sticky top-0 bg-card z-10">
+                  <TableRow className="hover:bg-transparent border-white/5">
+                    <TableHead className="w-[150px]">Name</TableHead>
+                    <TableHead>Time</TableHead>
+                    <TableHead className="text-right">Status</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {attendance.slice(0, 15).map((record: any) => (
+                    <TableRow key={record.id} className="border-white/5">
+                      <TableCell className="py-3">
+                        <div className="flex items-center space-x-3">
+                          <Avatar className="h-8 w-8">
+                            <AvatarFallback className="bg-secondary text-secondary-foreground text-xs font-medium">
+                              {record.userName?.charAt(0) || 'U'}
+                            </AvatarFallback>
+                          </Avatar>
+                          <span className="text-sm font-medium text-white line-clamp-1">{record.userName}</span>
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-xs text-muted-foreground">
+                        {formatDate(record.timestamp)}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <Badge variant={record.status === 'present' ? 'success' : 'destructive'} className="text-[10px] px-2 py-0">
+                          {record.status}
+                        </Badge>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
             ) : (
               <div className="p-8 text-center text-muted-foreground">No recent records</div>
             )}
